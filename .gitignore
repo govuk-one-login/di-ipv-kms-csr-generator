@@ -18,6 +18,7 @@
 *.zip
 *.tar.gz
 *.rar
+!gradle/wrapper/gradle-wrapper.jar
 !jar/di-ipv-kms-csr-generator-all.jar
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
