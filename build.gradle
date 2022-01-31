@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.1'
+}
+
+mainClassName = 'uk.gov.di.ipv.kmscsrgen.KmsCsrGenerator'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'info.picocli:picocli:4.6.2',
+            'software.amazon.awssdk:kms:2.17.100',
+            'software.amazon.awssdk:kms-jce-provider:1.0.0',
+            'software.amazon.awssdk:kms-jce-util:1.0.0'
+}
+
+test {
+    useJUnitPlatform()
+}
