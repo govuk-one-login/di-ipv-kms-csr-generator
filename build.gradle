@@ -4,7 +4,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.1'
 }
 
-mainClassName = 'uk.gov.di.ipv.kmscsrgen.KmsCsrGenerator'
+mainClassName = 'uk.gov.di.ipv.kmspublickeyops.KmsPublicKeyOperations'
 
 repositories {
     mavenLocal()
@@ -12,10 +12,13 @@ repositories {
 }
 
 dependencies {
-    implementation 'info.picocli:picocli:4.6.2',
-            'software.amazon.awssdk:kms:2.17.100',
+    implementation 'com.nimbusds:nimbus-jose-jwt:9.21',
+            'info.picocli:picocli:4.6.3',
+            'org.slf4j:slf4j-simple:1.7.36',
+            'software.amazon.awssdk:kms:2.17.155',
             'software.amazon.awssdk:kms-jce-provider:1.0.0',
             'software.amazon.awssdk:kms-jce-util:1.0.0'
+
 }
 
 test {
