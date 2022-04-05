@@ -1,11 +1,12 @@
-# KMS CSR and self-signed certificate generator
+# KMS Public Key Operations
 
-A tool for creating CSRs and self-signed certificates signed by a private key stored in AWS KMS.
+A tool for doing things with KMS and public keys.
 
-## Usage
+It can 
+ - create CSRs and self-signed certificates signed by a private key stored in AWS KMS.
+ - create public key JWKs for P-256 EC keys
 
-You will need to already have an asymmetric signing key in AWS capable of using RSASSA_PKCS1_V1_5_SHA_256. The key must
-have an alias.
+## Requirements
 
 You will also need to have AWS credentials for the AWS account the KMS key is located in exported to your environment.
 The GDS CLI makes this easy. For example:
@@ -14,37 +15,55 @@ The GDS CLI makes this easy. For example:
 eval $(gds aws di-ipv-dev -e)
 ```
 
-### Creating CSRs
+You will also already need to have a KMS key to work with. More details of what type are in the sections below.
+
+## Usage
+
+### CSRs and Self Signed Certificates
+
+You will need to already have an asymmetric signing key in AWS capable of using RSASSA_PKCS1_V1_5_SHA_256. The key must
+have an alias.
+
+#### Creating CSRs
 
 The only two required options are `cn` (common name) and `keyAlias`. You can create a CSR with:
 
 ```bash
-java -jar jar/di-ipv-kms-csr-generator-all.jar --cn 'My common name' --keyAlias 'alias/myKeyAlias'
+java -jar jar/di-ipv-kms-public-key-operations-all.jar csr --cn 'My common name' --keyAlias 'alias/myKeyAlias'
 ```
 
 This will use sensible defaults for the other certificate attributes, but they can be overridden. To see the other
 options run:
 
 ```bash
-java -jar jar/di-ipv-kms-csr-generator-all.jar
+java -jar jar/di-ipv-kms-public-key-operations-all.jar csr
 ```
 
-### Creating a self-signed certificate
+#### Creating a self-signed certificate
 
 Only three options are required; `cn` (common name), `keyAlias`, and `self-signed`. The value for `self-signed` should be
 the number of days the certificate should be valid for.
 
 ```bash
-java -jar jar/di-ipv-kms-csr-generator-all.jar --cn 'My common name' --keyAlias 'alias/myKeyAlias' --self-signed 365
+java -jar jar/di-ipv-kms-public-key-operations-all.jar csr --cn 'My common name' --keyAlias 'alias/myKeyAlias' --self-signed 365
 ```
 
 This will use sensible defaults for the other certificate attributes, but they can be overridden. To see the other
 options run:
 
 ```bash
-java -jar jar/di-ipv-kms-csr-generator-all.jar
+java -jar jar/di-ipv-kms-public-key-operations-all.jar csr
 ```
 
+### Public key JWKs for EC keys
+
+This will only work for KMS keys using the NIST P-256 elliptic curve.
+
+The only option for this command is the `keyAlias`. You can create a JWK with:
+
+```bash
+java -jar jar/di-ipv-kms-public-key-operations-all.jar jwk --keyAlias 'alias/myKeyAlias'
+```
 
 ## Building the jar yourself.
 
