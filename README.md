@@ -4,7 +4,7 @@ A tool for doing things with KMS and public keys.
 
 It can 
  - create CSRs and self-signed certificates signed by a private key stored in AWS KMS.
- - create public key JWKs for P-256 EC keys
+ - create public key JWKs for P-256 EC keys and RSA-2048 keys
 
 ## Requirements
 
@@ -55,9 +55,9 @@ options run:
 java -jar jar/di-ipv-kms-public-key-operations-all.jar csr
 ```
 
-### Public key JWKs for EC keys
+### Public key JWKs
 
-This will only work for KMS keys using the NIST P-256 elliptic curve.
+This will only work for KMS keys using the NIST P-256 elliptic curve, or RSA-2048 keys.
 
 The only option for this command is the `keyAlias`. You can create a JWK with:
 
