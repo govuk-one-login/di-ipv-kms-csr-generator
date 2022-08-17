@@ -59,10 +59,10 @@ java -jar jar/di-ipv-kms-public-key-operations-all.jar csr
 
 This will only work for KMS keys using the NIST P-256 elliptic curve, or RSA-2048 keys.
 
-The only option for this command is the `keyAlias`. You can create a JWK with:
+The 2 options for this command is the `keyAlias` and `keyUse`. You can create a JWK with:
 
 ```bash
-java -jar jar/di-ipv-kms-public-key-operations-all.jar jwk --keyAlias 'alias/myKeyAlias'
+java -jar jar/di-ipv-kms-public-key-operations-all.jar jwk --keyAlias 'alias/myKeyAlias' --keyUse 'sig'
 ```
 
 ## Building the jar yourself.
@@ -78,3 +78,5 @@ Once you've done that just run:
 ```bash
 ./gradlew shadowJar
 ```
+
+The build jar will be inside the build/libs folder. Just copy the jar ending in "-all" over to the jar folder.
