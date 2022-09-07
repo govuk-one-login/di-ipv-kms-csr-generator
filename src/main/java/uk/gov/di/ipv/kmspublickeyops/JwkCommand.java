@@ -1,5 +1,6 @@
 package uk.gov.di.ipv.kmspublickeyops;
 
+import com.nimbusds.jose.Algorithm;
 import com.nimbusds.jose.jwk.Curve;
 import com.nimbusds.jose.jwk.ECKey;
 import com.nimbusds.jose.jwk.KeyUse;
@@ -41,13 +42,13 @@ public class JwkCommand implements Runnable {
                 publicJwk = new ECKey.Builder(Curve.P_256, KmsECKeyFactory.getPublicKey(
                         client,
                         describeKeyResponse.keyMetadata().keyId()
-                )).keyUse(KeyUse.parse(keyUse)).build().toPublicJWK().toJSONString();
+                )).keyUse(KeyUse.parse(keyUse)).algorithm(Algorithm.parse("ES256")).build().toPublicJWK().toJSONString();
                 break;
             case RSA_2048:
                 publicJwk = new RSAKey.Builder(KmsRSAKeyFactory.getPublicKey(
                         client,
                         describeKeyResponse.keyMetadata().keyId()
-                )).keyUse(KeyUse.parse(keyUse)).build().toPublicJWK().toJSONString();
+                )).keyUse(KeyUse.parse(keyUse)).algorithm(Algorithm.parse("RS256")).build().toPublicJWK().toJSONString();
                 break;
             default:
                 throw new RuntimeException(String.format("Unsupported KeySpec: %s", keySpec));
