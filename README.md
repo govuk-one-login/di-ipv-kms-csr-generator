@@ -65,6 +65,18 @@ The 2 options for this command is the `keyAlias` and `keyUse`. You can create a 
 java -jar jar/di-ipv-kms-public-key-operations-all.jar jwk --keyAlias 'alias/myKeyAlias' --keyUse 'sig'
 ```
 
+### Decrypting JWEs
+
+This is useful for looking at the payload of JAR requests coming from orchestrator to core. You'll need the key ID for 
+the KMS key used to decrypt - this can be lifted straight from the core's config for the env you're using. And the
+serialized version of the JAR.
+
+It will output the serialized signed JWT, and the pretty printed jwt payload to std out.
+
+```bash
+java -jar jar/di-ipv-kms-public-key-operations-all.jar jwe-decrypt --jwe "A.STRING.SEPARATED.WITH.PERIODS" --keyId "12345678-90ab-cdef-1234567890ab"
+```
+
 ## Building the jar yourself.
 
 A fat-jar containing all the required dependencies that you can run directly is included in this repo (jar/di-ipv-kms-csr-generator-all.jar).
