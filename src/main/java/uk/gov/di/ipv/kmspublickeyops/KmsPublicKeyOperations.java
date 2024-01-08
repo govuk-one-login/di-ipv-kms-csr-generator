@@ -6,7 +6,7 @@ import picocli.CommandLine.Command;
 
 @Command(name = "KMS public key operations",
         description = "Generates a CSR or self-signed certificate signed by KSM",
-        subcommands = {  CsrCommand.class, JwkCommand.class, CommandLine.HelpCommand.class }
+        subcommands = {  CsrCommand.class, JwkCommand.class, JweDecryptCommand.class, CommandLine.HelpCommand.class }
 )
 public class KmsPublicKeyOperations {
     public static void main(String... args) {
