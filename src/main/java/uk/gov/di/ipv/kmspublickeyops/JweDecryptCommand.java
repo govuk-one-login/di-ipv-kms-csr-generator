@@ -8,6 +8,7 @@ import com.nimbusds.jose.JWEDecrypter;
 import com.nimbusds.jose.JWEObject;
 import com.nimbusds.jose.crypto.RSADecrypter;
 import com.nimbusds.jose.jwk.RSAKey;
+import com.nimbusds.jwt.SignedJWT;
 import picocli.CommandLine.ArgGroup;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -64,15 +65,31 @@ public class JweDecryptCommand implements Runnable {
             throw new RuntimeException("Unable to decrypt JWE", e);
         }
 
-        System.out.println("Payload:");
+        System.out.println();
+
+        System.out.println("JWE header:");
+        System.out.println(jarObject.getHeader().toString());
+        System.out.println();
+
+        System.out.println("JWE payload:");
         System.out.println(jarObject.getPayload().toString());
+        System.out.println();
 
         System.out.println();
 
-        System.out.println("JWT:");
+        SignedJWT signedJWT = jarObject.getPayload().toSignedJWT();
+
+        System.out.println("JWT header:");
+        System.out.println(
+                GSON.toJson(JsonParser.parseString(
+                        signedJWT.getHeader().toString()))
+        );
+        System.out.println();
+
+        System.out.println("JWT payload:");
         System.out.println(
                 GSON.toJson(
                     JsonParser.parseString(
-                            jarObject.getPayload().toSignedJWT().getPayload().toString())));
+                            signedJWT.getPayload().toString())));
     }
 }
