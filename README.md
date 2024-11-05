@@ -67,14 +67,16 @@ java -jar jar/di-ipv-kms-public-key-operations-all.jar jwk --keyAlias 'alias/myK
 
 ### Decrypting JWEs
 
-This is useful for looking at the payload of JAR requests coming from orchestrator to core. You'll need the key ID for 
-the KMS key used to decrypt - this can be lifted straight from the core's config for the env you're using. And the
-serialized version of the JAR.
+This is useful for looking at the payload of JAR requests. You'll need either a KMS key ID, or the private key in JWK
+format.
+
+The KMS key ID for core can be lifted straight from [core's config for the env you're using](https://github.com/govuk-one-login/ipv-core-common-infra/blob/main/utils/config-mgmt/app/configs/core.staging.params.yaml#L129). 
+You can find private keys for the stubs in the [stubs config](https://github.com/govuk-one-login/ipv-stubs-common-infra/blob/main/utils/config-mgmt/app/configs/stubs.production.params.yaml#L346).
 
 It will output the serialized signed JWT, and the pretty printed jwt payload to std out.
 
 ```bash
-java -jar jar/di-ipv-kms-public-key-operations-all.jar jwe-decrypt --jwe "A.STRING.SEPARATED.WITH.PERIODS" --keyId "12345678-90ab-cdef-1234567890ab"
+java -jar jar/di-ipv-kms-public-key-operations-all.jar jwe-decrypt --jwe=<jwe> [--kms-key-id=<kmsKeyId> | --private-key-jwk=<privateKeyJwk>]
 ```
 
 ## Building the jar yourself.
